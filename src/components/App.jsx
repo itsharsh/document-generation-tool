@@ -64,8 +64,8 @@ function createDocFiles(e) {
         const ws = wb.Sheets[wsName];
         let data = utils.sheet_to_json(ws, { header: 1 });
         data = data.map((e) => {
-            dateColumns.forEach((i) => (e[i] = getDate(e[i])));
-            currencyColumns.forEach((i) => (e[i] = e[i].toLocaleString("en-IN")));
+            dateColumns.forEach((i) => e.length > i && (e[i] = getDate(e[i])));
+            currencyColumns.forEach((i) => (e[i] = e.length > i && e[i].toLocaleString("en-IN")));
             return e;
         });
         console.log(`🚀 --------------------------------------`);
