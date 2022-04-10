@@ -8,6 +8,7 @@ import DocxMerger from "docx-merger";
 global.Buffer = global.Buffer || require("buffer").Buffer;
 
 let dateColumns = [9];
+let currencyColumns = [5, 6];
 let fileNameColumn = 4;
 
 function pause(msec) {
@@ -63,9 +64,8 @@ function createDocFiles(e) {
         const ws = wb.Sheets[wsName];
         let data = utils.sheet_to_json(ws, { header: 1 });
         data = data.map((e) => {
-            dateColumns.forEach((i) => {
-                e[i] = getDate(e[i]);
-            });
+            dateColumns.forEach((i) => (e[i] = getDate(e[i])));
+            currencyColumns.forEach((i) => (e[i] = e[i].toLocaleString("en-IN")));
             return e;
         });
         console.log(`🚀 --------------------------------------`);
